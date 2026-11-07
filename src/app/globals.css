@@ -1,26 +1,154 @@
 @import "tailwindcss";
 
+/*
+ * INFECTED HUB — design tokens
+ * Asphalt / soot / concrete: the dark safehouse wall.
+ * Blood: accent and danger. Flare: primary actions (road-flare orange).
+ * Bone: text. Ash: secondary text.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --asphalt: #0d0c0b;
+  --soot: #161412;
+  --soot-2: #1e1b18;
+  --concrete: #2c2824;
+  --concrete-2: #3d3832;
+  --bone: #ebe3d5;
+  --ash: #948b7f;
+  --blood: #d42a3c;
+  --blood-deep: #7a1420;
+  --flare: #ff7b1c;
+  --bile: #9ea83b;
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-asphalt: var(--asphalt);
+  --color-soot: var(--soot);
+  --color-soot-2: var(--soot-2);
+  --color-concrete: var(--concrete);
+  --color-concrete-2: var(--concrete-2);
+  --color-bone: var(--bone);
+  --color-ash: var(--ash);
+  --color-blood: var(--blood);
+  --color-blood-deep: var(--blood-deep);
+  --color-flare: var(--flare);
+  --color-bile: var(--bile);
+
+  --font-display: var(--font-stencil);
+  --font-sans: var(--font-archivo);
+  --font-mono: var(--font-jetbrains);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--asphalt);
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--asphalt);
+  color: var(--bone);
+  font-family: var(--font-archivo), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--blood);
+  color: var(--bone);
+}
+
+:focus-visible {
+  outline: 2px solid var(--flare);
+  outline-offset: 3px;
+}
+
+/* Film grain overlay used on covers and the hero wall */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Diagonal hazard tape */
+.hazard {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--flare) 0 14px,
+    var(--asphalt) 14px 28px
+  );
+}
+
+/* Hero panel: chamfered corners and a notch top-left for the tab label */
+.hero-frame-wrap {
+  --t: 40px;
+  --w: 170px;
+  --c: 18px;
+}
+@media (min-width: 768px) {
+  .hero-frame-wrap {
+    --t: 56px;
+    --w: 300px;
+    --c: 30px;
+  }
+}
+.hero-frame {
+  clip-path: polygon(
+    0 calc(var(--t) + var(--c)),
+    var(--c) var(--t),
+    var(--w) var(--t),
+    calc(var(--w) + var(--t)) 0,
+    calc(100% - var(--c)) 0,
+    100% var(--c),
+    100% calc(100% - var(--c)),
+    calc(100% - var(--c)) 100%,
+    var(--c) 100%,
+    0 calc(100% - var(--c))
+  );
+}
+
+.chamfer-tr {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+}
+.chamfer-br {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+}
+
+/* CRT scanlines */
+.scanlines {
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.28) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+
+/* Hero equalizer (video play state) and the flickering signal text */
+@keyframes eq {
+  0%, 100% { transform: scaleY(0.35); }
+  50% { transform: scaleY(1); }
+}
+.eq-bar {
+  transform-origin: bottom;
+  animation: eq 0.9s ease-in-out infinite;
+}
+@keyframes signal-flicker {
+  0%, 92%, 100% { opacity: 1; }
+  93% { opacity: 0.3; }
+  95% { opacity: 0.9; }
+  96% { opacity: 0.2; }
+}
+.signal {
+  animation: signal-flicker 4s steps(1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .eq-bar,
+  .signal {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
