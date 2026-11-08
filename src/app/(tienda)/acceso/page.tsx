@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Entrar" };
 export default function LoginPage() {
   return (
     <div className="pb-16">
-      <Suspense fallback={<div className="min-h-[min(80svh,760px)]" />}>
+      <Suspense fallback={<div className="h-[600px] md:h-[clamp(580px,80svh,760px)]" />}>
         <RoleSelect />
       </Suspense>
 

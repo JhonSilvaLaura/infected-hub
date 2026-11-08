@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { ModCover } from "@/components/cards/ModCover";
-import { ScenePanel, sceneCtaClass } from "@/components/scene/ScenePanel";
+import { ScenePanel } from "@/components/scene/ScenePanel";
+import { sceneCtaClass } from "@/components/scene/scene-style";
 import { formatPrice } from "@/lib/format";
 import type { CategorySlug, CoverTone } from "@/types/mod";
 
@@ -31,7 +32,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
         tab: s.category,
         eyebrow: `Reemplaza a ${s.replaces}`,
         title: s.title,
-        body: <p>{s.summary}</p>,
+        body: <p className="line-clamp-3">{s.summary}</p>,
         cta: (
           <Link href={`/mods/${s.slug}`} className={sceneCtaClass}>
             {s.price === null ? "Descargar gratis" : `Comprar · ${formatPrice(s.price)}`}

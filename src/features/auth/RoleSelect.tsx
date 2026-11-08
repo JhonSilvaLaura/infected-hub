@@ -3,7 +3,8 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowRight, Check, Library, LogOut, ShieldHalf, Store } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { ScenePanel, sceneCtaClass } from "@/components/scene/ScenePanel";
+import { ScenePanel } from "@/components/scene/ScenePanel";
+import { sceneCtaClass } from "@/components/scene/scene-style";
 import { ROLE_INFO, safeNext, signIn, signOut, useDemoRole, type DemoRole } from "@/lib/demo-session";
 import type { CoverTone } from "@/types/mod";
 import { RoleArt } from "./RoleArt";
@@ -60,7 +61,7 @@ export function RoleSelect() {
         titleId="acceso-title"
         selectorLabel="Elegir con qué rol entrar"
         signal="SESIÓN DE DEMOSTRACIÓN"
-        minHeight="min-h-[min(80svh,760px)]"
+        height="h-[600px] md:h-[clamp(580px,80svh,760px)]"
         initial={initial}
         slides={ROLES.map((r) => {
           const info = ROLE_INFO[r.role];

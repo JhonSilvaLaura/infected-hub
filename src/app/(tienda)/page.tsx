@@ -2,13 +2,13 @@ import Link from "next/link";
 import { BadgeCheck, FileCheck2, ScanSearch, ShieldCheck } from "lucide-react";
 import { CategoryCard } from "@/components/cards/CategoryCard";
 import { CollectionCard } from "@/components/cards/CollectionCard";
-import { ModCard } from "@/components/cards/ModCard";
 import { ModCover } from "@/components/cards/ModCover";
 import { buttonClass } from "@/components/ui/Button";
 import { MockDataNotice } from "@/components/ui/MockDataNotice";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Hero, type HeroSlide } from "@/features/home/Hero";
+import { SceneCard } from "@/components/scene/SceneCard";
 import { TapeDivider } from "@/features/home/TapeDivider";
 import { formatCount, formatDate, SLOT_GROUPS, SLOT_LABELS } from "@/lib/format";
 import {
@@ -32,7 +32,7 @@ export default function HomePage() {
   const categories = getCategories();
   const counts = countByCategory();
   const bySlot = countBySlot();
-  const [lead, ...restFeatured] = getFeaturedMods();
+  const featured = getFeaturedMods().slice(0, 3);
   const heroSlides: HeroSlide[] = [...mods]
     .sort((a, b) => b.downloads - a.downloads)
     .slice(0, 5)
@@ -65,18 +65,23 @@ export default function HomePage() {
           <Reveal>
             <SectionHeading eyebrow="Elegidos por moderación" title={<span id="destacados">Destacados</span>} href="/mods?sort=popular" />
           </Reveal>
-          <div className="grid gap-5 lg:grid-cols-[1.6fr_1fr]">
-            <Reveal>
-              <ModCard mod={lead} size="large" creator={getCreator(lead.creatorSlug)} category={getCategory(lead.categorySlug)} className="h-full" />
-            </Reveal>
-            <div className="grid gap-5">
-              {restFeatured.map((m, i) => (
-                <Reveal key={m.id} delay={0.08 * (i + 1)}>
-                  <ModCard mod={m} creator={getCreator(m.creatorSlug)} category={getCategory(m.categorySlug)} />
+          <ol className="grid gap-5 lg:grid-cols-[1.6fr_1fr] lg:grid-rows-2">
+            {featured.map((m, i) => (
+              <li key={m.id} className={i === 0 ? "lg:row-span-2" : undefined}>
+                <Reveal delay={0.08 * i} className="h-full">
+                  <SceneCard
+                    mod={m}
+                    index={i}
+                    total={featured.length}
+                    lead={i === 0}
+                    creator={getCreator(m.creatorSlug)}
+                    category={getCategory(m.categorySlug)}
+                    className={i === 0 ? "h-[440px] lg:h-full lg:min-h-[540px]" : "h-[260px]"}
+                  />
                 </Reveal>
-              ))}
-            </div>
-          </div>
+              </li>
+            ))}
+          </ol>
         </section>
       </div>
 

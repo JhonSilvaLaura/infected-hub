@@ -110,6 +110,35 @@ body {
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
 }
 
+/* Card version of the hero frame: chamfered top-right and bottom-left corners */
+.scene-card {
+  clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+}
+
+/* One burst of interference when a scene card is hovered or focused */
+@keyframes scene-glitch {
+  0% { opacity: 0.85; transform: translateY(-18px); }
+  25% { opacity: 0.4; transform: translateY(12px); }
+  50% { opacity: 0.7; transform: translateY(-6px); }
+  100% { opacity: 0; transform: translateY(0); }
+}
+.group:hover .scene-glitch,
+.group:focus-visible .scene-glitch {
+  animation: scene-glitch 0.45s steps(4) 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .scene-glitch,
+  .group:focus-visible .scene-glitch {
+    animation: none;
+  }
+}
+
+/* Scene titles: never wider than their container, whatever the longest word (see titleFit) */
+.title-fit {
+  /* ~0.52em per uppercase stencil letter, including the chromatic shadow */
+  font-size: min(var(--title-size), calc(100cqi / (var(--chars) * 0.52)));
+}
+
 /* CRT scanlines */
 .scanlines {
   background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.28) 0 1px, transparent 1px 3px);
