@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s · INFECTED HUB",
   },
   description:
-    "Tienda independiente de mods de personaje para Left 4 Dead 2: supervivientes, infectados y atuendos con licencia. No afiliada a Valve ni a Steam.",
+    "Tienda independiente de mods de personaje para Left 4 Dead 2: supervivientes, atuendos y brazos con licencia. No afiliada a Valve ni a Steam.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

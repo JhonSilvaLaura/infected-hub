@@ -33,8 +33,8 @@ describe("filterMods", () => {
   });
 
   it("finds mods by the name of the character they replace", () => {
-    const { items } = filterMods(MOCK_MODS, { ...base, q: "witch" });
-    expect(items.map((m) => m.slug)).toContain("novia-del-pantano");
+    const { items } = filterMods(MOCK_MODS, { ...base, q: "zoey" });
+    expect(items.map((m) => m.slug)).toContain("novia-a-la-fuga");
   });
 
   it("sorts by downloads, date and rating", () => {

@@ -18,22 +18,12 @@ export const SLOT_LABELS: Record<CharacterSlot, string> = {
   zoey: "Zoey",
   louis: "Louis",
   francis: "Francis",
-  tank: "Tank",
-  witch: "Witch",
-  hunter: "Hunter",
-  smoker: "Smoker",
-  boomer: "Boomer",
-  charger: "Charger",
-  spitter: "Spitter",
-  jockey: "Jockey",
-  common: "Infectado común",
 };
 
-/** Slots grouped the way players look for them. */
+/** Survivors grouped by game, the way players look for them. */
 export const SLOT_GROUPS: { label: string; slots: CharacterSlot[] }[] = [
-  { label: "Supervivientes L4D2", slots: ["nick", "ellis", "coach", "rochelle"] },
-  { label: "Supervivientes L4D1", slots: ["bill", "zoey", "louis", "francis"] },
-  { label: "Infectados", slots: ["tank", "witch", "hunter", "smoker", "boomer", "charger", "spitter", "jockey", "common"] },
+  { label: "Grupo de L4D2", slots: ["nick", "ellis", "coach", "rochelle"] },
+  { label: "Grupo de L4D1", slots: ["bill", "zoey", "louis", "francis"] },
 ];
 
 export const PART_LABELS: Record<CharacterPart, string> = {

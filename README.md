@@ -1,6 +1,6 @@
 # INFECTED HUB — Frontend (Fase 1)
 
-Frontend de la tienda independiente de **mods de personaje** para Left 4 Dead 2: supervivientes, infectados especiales y comunes, atuendos y brazos. Cada mod indica a qué personaje reemplaza. **No afiliada a Valve ni a Steam.**
+Frontend de la tienda independiente de **mods de supervivientes** para Left 4 Dead 2: modelos completos, atuendos y brazos para los ocho supervivientes. Cada mod indica a quién reemplaza. **No afiliada a Valve ni a Steam.**
 Especificación completa del proyecto: [`../docs/PROMPT_MAESTRO.md`](../docs/PROMPT_MAESTRO.md).
 
 > ⚠️ Esta fase funciona con **datos simulados** (`src/mocks/catalog.mock.ts`) y lo indica en pantalla.
@@ -31,9 +31,9 @@ Dos experiencias separadas: la **tienda** (grupo `app/(tienda)`, con header y fo
 
 | Ruta | Contenido |
 | --- | --- |
-| `/` | Hero tipo panel con selector de personajes, destacados, categorías, por personaje, recientes, packs, creadores, “vende tus mods” |
+| `/` | Hero tipo panel, destacados, “Elige superviviente” (los 8 como pantalla de selección + tipos de mod), últimas entradas en formato registro, packs como equipos, fichas de creadores y cierre “Vende tus supervivientes” |
 | `/mods` · `/mods/[slug]` | Catálogo con filtros en la URL · ficha con carrito, deseos, “ya lo tienes” y aviso si choca con un mod de tu biblioteca |
-| `/categorias` · `/categorias/[slug]` | Las 6 categorías |
+| `/categorias` · `/categorias/[slug]` | Modelos completos, atuendos, brazos y packs |
 | `/carrito` | Carrito local con aviso de conflictos por personaje; “Pagar” termina en un aviso: pagos no habilitados, no se cobra nada |
 | `/cuenta/biblioteca` · `/cuenta/deseos` · `/cuenta/ajustes` | Sesión simulada: mods agrupados por personaje, actualizaciones, detector de conflictos (activo / inactivo); deseos; ajustes |
 | `/creadores` · `/creadores/[slug]` | Perfiles públicos de creadores con sus mods |

@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import type { CoverTone } from "@/types/mod";
+import type { CharacterSlot, CoverTone } from "@/types/mod";
 
 /* Shared by the client ScenePanel and the server SceneCard, so it must stay free of "use client". */
 
@@ -10,6 +10,18 @@ export const SCENE_TINTS: Record<CoverTone, string> = {
   bile: "#a3b02c",
   ash: "#c9452f",
   night: "#7d3cff",
+};
+
+/** Each survivor's colour in the roster, so a crew reads as four distinct people. */
+export const SURVIVOR_TONES: Record<CharacterSlot, CoverTone> = {
+  nick: "night",
+  ellis: "flare",
+  coach: "bile",
+  rochelle: "blood",
+  bill: "ash",
+  zoey: "blood",
+  louis: "bile",
+  francis: "night",
 };
 
 /** Base size by total length: long titles get smaller so they fit in two lines. */

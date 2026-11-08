@@ -10,6 +10,7 @@ import {
   MOCK_MODS,
   mockReviewsFor,
 } from "@/mocks/catalog.mock";
+import { SLOT_GROUPS } from "@/lib/format";
 import type { CategorySlug, CharacterSlot, Mod } from "@/types/mod";
 
 export const USING_MOCK_DATA = true;
@@ -48,12 +49,6 @@ export const countByCategory = (): Record<CategorySlug, number> => {
   return counts;
 };
 
-export const countBySlot = (): Partial<Record<CharacterSlot, number>> => {
-  const counts: Partial<Record<CharacterSlot, number>> = {};
-  for (const m of publicMods()) counts[m.replaces] = (counts[m.replaces] ?? 0) + 1;
-  return counts;
-};
-
 export const getReviews = (mod: Mod) => mockReviewsFor(mod.id);
 
 /** Downloads of paid mods per replaced character across the whole store, highest first. */
@@ -62,3 +57,14 @@ export const getSlotDemand = () => {
   for (const m of publicMods().filter((x) => x.price !== null)) totals.set(m.replaces, (totals.get(m.replaces) ?? 0) + m.downloads);
   return [...totals.entries()].map(([slot, downloads]) => ({ slot, downloads })).sort((a, b) => b.downloads - a.downloads);
 };
+
+/** Per survivor: how many mods replace them and the cheapest paid price (free ones flagged apart). */
+export const getSurvivorRoster = () =>
+  SLOT_GROUPS.map((group) => ({
+    label: group.label,
+    survivors: group.slots.map((slot) => {
+      const mods = publicMods().filter((m) => m.replaces === slot);
+      const paid = mods.flatMap((m) => (m.price === null ? [] : [m.price]));
+      return { slot, count: mods.length, from: paid.length ? Math.min(...paid) : null, free: mods.some((m) => m.price === null) };
+    }),
+  }));

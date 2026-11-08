@@ -53,7 +53,7 @@ export default function SellPage() {
           Vende tus personajes.
         </h1>
         <p className="mt-6 max-w-xl text-lg text-bone/75">
-          Publica tus modelos de supervivientes e infectados, ponles precio y quédate con el {share}% de cada venta. Tu
+          Publica tus supervivientes, ponles precio y quédate con el {share}% de cada venta. Tu
           nombre va en cada ficha.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">

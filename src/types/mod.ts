@@ -5,38 +5,15 @@ export type ModStatus =
   | "REJECTED"
   | "SUSPENDED";
 
-/** In-game character slot a mod replaces. Each model mod overwrites exactly one slot. */
-export type CharacterSlot =
-  | "nick"
-  | "ellis"
-  | "coach"
-  | "rochelle"
-  | "bill"
-  | "zoey"
-  | "louis"
-  | "francis"
-  | "tank"
-  | "witch"
-  | "hunter"
-  | "smoker"
-  | "boomer"
-  | "charger"
-  | "spitter"
-  | "jockey"
-  | "common";
+/** Survivor a mod replaces. Each model mod overwrites exactly one survivor. */
+export type CharacterSlot = "nick" | "ellis" | "coach" | "rochelle" | "bill" | "zoey" | "louis" | "francis";
 
 /** What the download contains besides the third-person model. */
 export type CharacterPart = "model" | "arms" | "portrait" | "voice";
 
 export type CoverTone = "blood" | "flare" | "bile" | "ash" | "night";
 
-export type CategorySlug =
-  | "survivors"
-  | "outfits"
-  | "special-infected"
-  | "common-infected"
-  | "arms"
-  | "packs";
+export type CategorySlug = "survivors" | "outfits" | "arms" | "packs";
 
 export interface Category {
   slug: CategorySlug;
