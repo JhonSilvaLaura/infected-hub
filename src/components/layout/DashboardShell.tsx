@@ -1,13 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, LogOut, Menu, X } from "lucide-react";
 import { LogoMark } from "@/components/layout/Logo";
 import { DemoBanner } from "@/components/ui/DemoBanner";
+import { RoleGate } from "@/features/auth/RoleGate";
+import { signOut, type DemoRole } from "@/lib/demo-session";
 
 interface DashboardShellProps {
+  /** Demo roles that may see this area (UI only; the server enforces real permissions) */
+  allow: DemoRole[];
   /** Section name next to the logo, e.g. "Creador" */
   area: string;
   /** Who is signed in (avatar + name) */
@@ -24,7 +29,16 @@ interface DashboardShellProps {
  * Work area for creators and staff: fixed sidebar from `lg`, drawer below it.
  * Deliberately quieter than the store — data first, no hero effects.
  */
-export function DashboardShell({ area, account, nav, actions, demoNotice, children }: DashboardShellProps) {
+export function DashboardShell({ allow, ...props }: DashboardShellProps) {
+  return (
+    <RoleGate allow={allow}>
+      <Shell {...props} />
+    </RoleGate>
+  );
+}
+
+function Shell({ area, account, nav, actions, demoNotice, children }: Omit<DashboardShellProps, "allow">) {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   const brand = (
@@ -43,11 +57,22 @@ export function DashboardShell({ area, account, nav, actions, demoNotice, childr
     <>
       <div className="border-b border-concrete px-4 py-4">{account}</div>
       <div className="flex-1 overflow-y-auto px-3 py-4">{nav}</div>
-      <div className="border-t border-concrete px-4 py-3">
+      <div className="flex items-center justify-between border-t border-concrete px-4 py-3">
         <Link href="/" className="flex items-center gap-1.5 text-sm text-ash hover:text-bone">
           Ver tienda
           <ArrowUpRight className="size-3.5" aria-hidden />
         </Link>
+        <button
+          type="button"
+          onClick={() => {
+            signOut();
+            router.push("/acceso");
+          }}
+          className="flex items-center gap-1.5 text-sm text-ash hover:text-bone"
+        >
+          <LogOut className="size-3.5" aria-hidden />
+          Salir
+        </button>
       </div>
     </>
   );

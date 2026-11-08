@@ -6,7 +6,7 @@ import type { CategorySlug, CoverTone } from "@/types/mod";
  * Procedural cover art. Placeholder for creator-uploaded images (S3) until Fase 4;
  * generated so no third-party or Valve artwork is ever shipped.
  */
-const TONES: Record<CoverTone, string> = {
+export const COVER_TONES: Record<CoverTone, string> = {
   blood: "radial-gradient(120% 90% at 80% 10%, #8a1a26 0%, #3a0b12 45%, #120707 100%)",
   flare: "radial-gradient(120% 90% at 20% 0%, #a8480f 0%, #3d1a07 50%, #110a05 100%)",
   bile: "radial-gradient(120% 90% at 70% 100%, #4f5317 0%, #1e200a 50%, #0b0b06 100%)",
@@ -30,7 +30,7 @@ export function ModCover({ tone, code, category, className, large, variant = 0 }
   return (
     <div
       className={cn("relative isolate overflow-hidden bg-soot", className)}
-      style={{ background: TONES[tone] }}
+      style={{ background: COVER_TONES[tone] }}
       aria-hidden
     >
       <Icon

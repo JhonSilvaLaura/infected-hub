@@ -11,6 +11,7 @@ export default function CreatorLayout({ children }: LayoutProps<"/creador">) {
   const creator = getCurrentCreator();
   return (
     <DashboardShell
+      allow={["creator"]}
       area="Creador"
       account={
         <div className="flex items-center gap-3">

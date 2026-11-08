@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
-import { Heart, Menu, Search, ShoppingCart, UserRound, X, type LucideIcon } from "lucide-react";
+import { Heart, Menu, Search, ShoppingCart, X, type LucideIcon } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { Logo } from "@/components/layout/Logo";
 import { buttonClass } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 import { cartStore, wishlistStore } from "@/features/store/stores";
+import { AccountMenu } from "@/features/auth/AccountMenu";
 
 const NAV = [
   { href: "/mods", label: "Catálogo" },
@@ -84,12 +85,7 @@ export function SiteHeader() {
         <div className="ml-auto flex items-center gap-0.5 md:ml-0">
           <IconLink href="/cuenta/deseos" icon={Heart} label="Lista de deseos" count={wishlist} active={pathname === "/cuenta/deseos"} />
           <IconLink href="/carrito" icon={ShoppingCart} label="Carrito" count={cart} active={pathname === "/carrito"} />
-          <IconLink
-            href="/cuenta/biblioteca"
-            icon={UserRound}
-            label="Mi cuenta (demo)"
-            active={pathname.startsWith("/cuenta") && pathname !== "/cuenta/deseos"}
-          />
+          <AccountMenu active={pathname === "/acceso" || (pathname.startsWith("/cuenta") && pathname !== "/cuenta/deseos")} />
         </div>
 
         <button

@@ -10,6 +10,7 @@ export default function AdminLayout({ children }: LayoutProps<"/admin">) {
   const stats = getPlatformStats();
   return (
     <DashboardShell
+      allow={["admin"]}
       area="Admin"
       account={
         <div className="flex items-center gap-3">
